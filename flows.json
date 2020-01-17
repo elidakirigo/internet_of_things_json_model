@@ -1,0 +1,21 @@
+[
+    {
+        "id": "1a1933ac.e72dbc",
+        "type": "uibuilder",
+        "z": "7b61e255.088a84",
+        "name": "ui",
+        "topic": "home page",
+        "url": "index",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "showfolder": false,
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [],
+            []
+        ]
+    }
+]
