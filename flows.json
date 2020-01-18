@@ -1,18 +1,25 @@
 [
     {
-        "id": "1a1933ac.e72dbc",
+        "id": "356122d1.7d463e",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "333f1ca7.f3ce24",
         "type": "uibuilder",
-        "z": "7b61e255.088a84",
-        "name": "ui",
-        "topic": "home page",
-        "url": "index",
+        "z": "356122d1.7d463e",
+        "name": "",
+        "topic": "",
+        "url": "a",
         "fwdInMessages": false,
         "allowScripts": false,
         "allowStyles": false,
         "copyIndex": true,
         "showfolder": false,
-        "x": 390,
-        "y": 120,
+        "x": 430,
+        "y": 180,
         "wires": [
             [],
             []
