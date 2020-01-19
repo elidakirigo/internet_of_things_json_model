@@ -1,15 +1,15 @@
 [
     {
-        "id": "356122d1.7d463e",
+        "id": "633242d2.0e94f4",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Flow 2",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "333f1ca7.f3ce24",
+        "id": "4995a60d.558f58",
         "type": "uibuilder",
-        "z": "356122d1.7d463e",
+        "z": "633242d2.0e94f4",
         "name": "",
         "topic": "",
         "url": "a",
@@ -18,8 +18,8 @@
         "allowStyles": false,
         "copyIndex": true,
         "showfolder": false,
-        "x": 430,
-        "y": 180,
+        "x": 284,
+        "y": 109,
         "wires": [
             [],
             []
