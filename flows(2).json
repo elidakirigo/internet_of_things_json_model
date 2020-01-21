@@ -1,0 +1,20 @@
+[
+    {
+        "id": "6032b5f7.ce4af4",
+        "type": "inject",
+        "z": "965550d4.499918",
+        "name": "CREATE feed",
+        "topic": "CREATE TABLE feed(name, id );",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    }
+]

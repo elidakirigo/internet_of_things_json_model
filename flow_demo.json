@@ -1,0 +1,4216 @@
+[
+    {
+        "id": "420e2168.9e0968",
+        "type": "tab",
+        "label": "Relay Board Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b8bf56c6.42ac58",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay Board",
+        "info": "",
+        "x": 110,
+        "y": 23,
+        "wires": []
+    },
+    {
+        "id": "2708e.accd47726",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay 1 \"Open door 1 way\"",
+        "info": "",
+        "x": 150,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e27485de.42c8e",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay 2 \"Open door opposite way\"",
+        "info": "",
+        "x": 180,
+        "y": 383,
+        "wires": []
+    },
+    {
+        "id": "96f93b90.19fe28",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "relay1",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 440,
+        "y": 240,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "c2fdc6fa.b5881",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 220,
+        "wires": [
+            [
+                "37152736.ceb2d"
+            ]
+        ]
+    },
+    {
+        "id": "b61d5478.0b4ab8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 180,
+        "wires": [
+            [
+                "701983b0.3a4d24"
+            ]
+        ]
+    },
+    {
+        "id": "701983b0.3a4d24",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "relay1",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80ab7b33.77ff78",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "9e2170b2.de2e38"
+            ]
+        ]
+    },
+    {
+        "id": "37152736.ceb2d",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay1\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 220,
+        "wires": [
+            [
+                "91a29dd8.2915c8"
+            ]
+        ]
+    },
+    {
+        "id": "2b925d69.adcb82",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay1",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f99b488.76301c",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"relay1\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 340,
+        "wires": [
+            [
+                "6132dea6.21c558"
+            ]
+        ]
+    },
+    {
+        "id": "9e2170b2.de2e38",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay1\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 240,
+        "wires": [
+            [
+                "96f93b90.19fe28"
+            ]
+        ]
+    },
+    {
+        "id": "6132dea6.21c558",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "91a29dd8.2915c8",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1160,
+        "y": 220,
+        "wires": [
+            [
+                "2b925d69.adcb82",
+                "6132dea6.21c558"
+            ]
+        ]
+    },
+    {
+        "id": "5d87c2d0.574ffc",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "relay2",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 500,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "77e0263e.bd47d8",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 480,
+        "wires": [
+            [
+                "55ea5d96.4496fc"
+            ]
+        ]
+    },
+    {
+        "id": "92e963de.3f7bc8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 440,
+        "wires": [
+            [
+                "3b7ef728.4334a"
+            ]
+        ]
+    },
+    {
+        "id": "3b7ef728.4334a",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "relay2",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "38880157.f02ae6",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 500,
+        "wires": [
+            [
+                "a2d0eddc.a0d1b8"
+            ]
+        ]
+    },
+    {
+        "id": "55ea5d96.4496fc",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay2\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 480,
+        "wires": [
+            [
+                "31b21397.e0cf7c"
+            ]
+        ]
+    },
+    {
+        "id": "72efa202.bce50c",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay2",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e70b622a.ca8568",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 560,
+        "wires": [
+            [
+                "7418737f.31f864"
+            ]
+        ]
+    },
+    {
+        "id": "7418737f.31f864",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"relay2\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 560,
+        "wires": [
+            [
+                "bb8db1bb.fb373"
+            ]
+        ]
+    },
+    {
+        "id": "a2d0eddc.a0d1b8",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay2\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 500,
+        "wires": [
+            [
+                "5d87c2d0.574ffc"
+            ]
+        ]
+    },
+    {
+        "id": "bb8db1bb.fb373",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "e3aba17.fe3f3e",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 280,
+        "wires": [
+            [
+                "7f99b488.76301c"
+            ]
+        ]
+    },
+    {
+        "id": "31b21397.e0cf7c",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1140,
+        "y": 480,
+        "wires": [
+            [
+                "72efa202.bce50c",
+                "bb8db1bb.fb373"
+            ]
+        ]
+    },
+    {
+        "id": "ed8d46e7.c0703",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Virtual Emergency Flow",
+        "info": "",
+        "x": 140,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ce7078c0.1e545",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "vrelay2",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 740,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "f5b56551.ee894",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "vrelay2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 720,
+        "wires": [
+            [
+                "a0031a4.2a14f68"
+            ]
+        ]
+    },
+    {
+        "id": "c4c12474.36689",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 680,
+        "wires": [
+            [
+                "aa492767.76b5a8"
+            ]
+        ]
+    },
+    {
+        "id": "aa492767.76b5a8",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vrelay2",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "21b3c8f0.05bac8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 740,
+        "wires": [
+            [
+                "2ef89205.6e692e"
+            ]
+        ]
+    },
+    {
+        "id": "a0031a4.2a14f68",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelay2\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 720,
+        "wires": [
+            [
+                "5eb49fca.45fbb",
+                "a51ec222.f0ec1"
+            ]
+        ]
+    },
+    {
+        "id": "5eb49fca.45fbb",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelay2",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f05d92f.ae80a8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 800,
+        "wires": [
+            [
+                "35488fce.f5c6a8"
+            ]
+        ]
+    },
+    {
+        "id": "35488fce.f5c6a8",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"vrelay2\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 800,
+        "wires": [
+            [
+                "a51ec222.f0ec1"
+            ]
+        ]
+    },
+    {
+        "id": "2ef89205.6e692e",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelay2\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 740,
+        "wires": [
+            [
+                "ce7078c0.1e545"
+            ]
+        ]
+    },
+    {
+        "id": "a51ec222.f0ec1",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "30371c48.37aa4c",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay 3 \"Open door 1 way\"",
+        "info": "",
+        "x": 150,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "9886abf2.31ce88",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay 4 \"Open door opposite way\"",
+        "info": "",
+        "x": 180,
+        "y": 1143,
+        "wires": []
+    },
+    {
+        "id": "9480f84b.acddc8",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "relay3",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 440,
+        "y": 1000,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "212e6dff.30464a",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay3",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 980,
+        "wires": [
+            [
+                "9c917cad.04c52"
+            ]
+        ]
+    },
+    {
+        "id": "2d859210.8f4a56",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 940,
+        "wires": [
+            [
+                "ca3c768.b96dd88"
+            ]
+        ]
+    },
+    {
+        "id": "ca3c768.b96dd88",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "relay3",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "76e8149d.5be624",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 1000,
+        "wires": [
+            [
+                "1dec207b.9a75f"
+            ]
+        ]
+    },
+    {
+        "id": "9c917cad.04c52",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay3\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 980,
+        "wires": [
+            [
+                "b283ed02.da8fd8"
+            ]
+        ]
+    },
+    {
+        "id": "55ddd824.6b4a3",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay3",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "72b6fd5d.f2ffc4",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"relay3\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 1060,
+        "wires": [
+            [
+                "e8481ffb.64d91"
+            ]
+        ]
+    },
+    {
+        "id": "1dec207b.9a75f",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay3\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 1000,
+        "wires": [
+            [
+                "9480f84b.acddc8"
+            ]
+        ]
+    },
+    {
+        "id": "e8481ffb.64d91",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "b283ed02.da8fd8",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1160,
+        "y": 980,
+        "wires": [
+            [
+                "55ddd824.6b4a3",
+                "e8481ffb.64d91"
+            ]
+        ]
+    },
+    {
+        "id": "c6f68b93.535388",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "relay4",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 1260,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "a94cc1ac.0d829",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay4",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 1240,
+        "wires": [
+            [
+                "d8fcbf56.bfca88"
+            ]
+        ]
+    },
+    {
+        "id": "b30950e7.fd78a8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 1200,
+        "wires": [
+            [
+                "fae2840.52c5a8"
+            ]
+        ]
+    },
+    {
+        "id": "fae2840.52c5a8",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "relay4",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c98459d0.bdd5f8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 1260,
+        "wires": [
+            [
+                "da517643.d0fe18"
+            ]
+        ]
+    },
+    {
+        "id": "d8fcbf56.bfca88",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay2\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 1240,
+        "wires": [
+            [
+                "8b2e0026.ea5848"
+            ]
+        ]
+    },
+    {
+        "id": "d6ab2f1c.cf2da8",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay4",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "909199c4.df29f",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 1320,
+        "wires": [
+            [
+                "490d914a.5ae1c"
+            ]
+        ]
+    },
+    {
+        "id": "490d914a.5ae1c",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"relay4\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 1320,
+        "wires": [
+            [
+                "b896bd1b.673ea8"
+            ]
+        ]
+    },
+    {
+        "id": "da517643.d0fe18",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay4\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 1260,
+        "wires": [
+            [
+                "c6f68b93.535388"
+            ]
+        ]
+    },
+    {
+        "id": "b896bd1b.673ea8",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "94a2a587.acbf48",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 1060,
+        "wires": [
+            [
+                "72b6fd5d.f2ffc4"
+            ]
+        ]
+    },
+    {
+        "id": "8b2e0026.ea5848",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1140,
+        "y": 1240,
+        "wires": [
+            [
+                "d6ab2f1c.cf2da8",
+                "b896bd1b.673ea8"
+            ]
+        ]
+    },
+    {
+        "id": "29f92601.5bdeba",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Virtual Emergency Flow",
+        "info": "",
+        "x": 140,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "ad2c9016.924da",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "vrelay4",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 1500,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "2914024.9e2ccfe",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "vrelay4",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 1480,
+        "wires": [
+            [
+                "85a148e4.a1cac8"
+            ]
+        ]
+    },
+    {
+        "id": "604811b4.b8c14",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 1440,
+        "wires": [
+            [
+                "8a31f988.0fae78"
+            ]
+        ]
+    },
+    {
+        "id": "8a31f988.0fae78",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vrelay4",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4ac759db.4f046",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 1500,
+        "wires": [
+            [
+                "79e645d1.18eae4"
+            ]
+        ]
+    },
+    {
+        "id": "85a148e4.a1cac8",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelay4\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 1480,
+        "wires": [
+            [
+                "6fb4130d.cd858c",
+                "1b6b7bf6.c6f5e4"
+            ]
+        ]
+    },
+    {
+        "id": "6fb4130d.cd858c",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelay4",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 1420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d8faeea2.b6ed58",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 1560,
+        "wires": [
+            [
+                "e3f145c3.c2c998"
+            ]
+        ]
+    },
+    {
+        "id": "e3f145c3.c2c998",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"vrelay4\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 1560,
+        "wires": [
+            [
+                "1b6b7bf6.c6f5e4"
+            ]
+        ]
+    },
+    {
+        "id": "79e645d1.18eae4",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelay4\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 1500,
+        "wires": [
+            [
+                "ad2c9016.924da"
+            ]
+        ]
+    },
+    {
+        "id": "1b6b7bf6.c6f5e4",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "d0f73003.b23a2",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay 5 \"Open door 1 way\"",
+        "info": "",
+        "x": 150,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "b755aaf4.1d9488",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay 6 \"Open door opposite way\"",
+        "info": "",
+        "x": 180,
+        "y": 1903,
+        "wires": []
+    },
+    {
+        "id": "e106e77d.1248a8",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "relay5",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 440,
+        "y": 1760,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "1e21372d.b2d899",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay5",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 1740,
+        "wires": [
+            [
+                "e3d0b944.d0e3"
+            ]
+        ]
+    },
+    {
+        "id": "6e9677b3.00037",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 1700,
+        "wires": [
+            [
+                "c335a2b2.fcded"
+            ]
+        ]
+    },
+    {
+        "id": "c335a2b2.fcded",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "relay5",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 1700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ff11fb5c.5fabf8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 1760,
+        "wires": [
+            [
+                "38e66b36.8790f4"
+            ]
+        ]
+    },
+    {
+        "id": "e3d0b944.d0e3",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay5\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 1740,
+        "wires": [
+            [
+                "ac535362.e8536"
+            ]
+        ]
+    },
+    {
+        "id": "6d4a9079.0a9138",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay5",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 1680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea67399e.740c5",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"relay5\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 1820,
+        "wires": [
+            [
+                "31b6721c.aa014e"
+            ]
+        ]
+    },
+    {
+        "id": "38e66b36.8790f4",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay5\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 1760,
+        "wires": [
+            [
+                "e106e77d.1248a8"
+            ]
+        ]
+    },
+    {
+        "id": "31b6721c.aa014e",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "ac535362.e8536",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1160,
+        "y": 1740,
+        "wires": [
+            [
+                "6d4a9079.0a9138",
+                "31b6721c.aa014e"
+            ]
+        ]
+    },
+    {
+        "id": "4ab7d90c.445ca8",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "relay6",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 2020,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "3bba1ba1.8f643c",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay6",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 2000,
+        "wires": [
+            [
+                "aab959be.74603"
+            ]
+        ]
+    },
+    {
+        "id": "9bdd6b72.c444a",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 1960,
+        "wires": [
+            [
+                "4e5f5743.17d5f8"
+            ]
+        ]
+    },
+    {
+        "id": "4e5f5743.17d5f8",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "relay6",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 1960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5a5d4538.7a4c14",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 2020,
+        "wires": [
+            [
+                "6f98f17f.bbc208"
+            ]
+        ]
+    },
+    {
+        "id": "aab959be.74603",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay2\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 2000,
+        "wires": [
+            [
+                "d2bb6679.45671"
+            ]
+        ]
+    },
+    {
+        "id": "aa1c4902.6dee8",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay6",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 1940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9d05a637.7085f8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 2080,
+        "wires": [
+            [
+                "71bbb8d6.75e6"
+            ]
+        ]
+    },
+    {
+        "id": "71bbb8d6.75e6",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"relay6\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 2080,
+        "wires": [
+            [
+                "43281390.d0ca9c"
+            ]
+        ]
+    },
+    {
+        "id": "6f98f17f.bbc208",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay6\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 2020,
+        "wires": [
+            [
+                "4ab7d90c.445ca8"
+            ]
+        ]
+    },
+    {
+        "id": "43281390.d0ca9c",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "4b58a4cd.bcbe8c",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 1820,
+        "wires": [
+            [
+                "ea67399e.740c5"
+            ]
+        ]
+    },
+    {
+        "id": "d2bb6679.45671",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1140,
+        "y": 2000,
+        "wires": [
+            [
+                "aa1c4902.6dee8",
+                "43281390.d0ca9c"
+            ]
+        ]
+    },
+    {
+        "id": "ecf7ee45.81a948",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Virtual Emergency Flow",
+        "info": "",
+        "x": 140,
+        "y": 2140,
+        "wires": []
+    },
+    {
+        "id": "52c376da.88633",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "vrelay6",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 2260,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "bf1d7813.a0912",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "vrelay6",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 2240,
+        "wires": [
+            [
+                "16d218ae.4470c7"
+            ]
+        ]
+    },
+    {
+        "id": "4dc1550e.43633c",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 2200,
+        "wires": [
+            [
+                "85ff294c.f3195"
+            ]
+        ]
+    },
+    {
+        "id": "85ff294c.f3195",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vrelay6",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 2200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c1751d7a.d9e5",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 2260,
+        "wires": [
+            [
+                "69ee7828.f773e8"
+            ]
+        ]
+    },
+    {
+        "id": "16d218ae.4470c7",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelay6\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 2240,
+        "wires": [
+            [
+                "93706050.5ec4d8",
+                "63201ab8.0072fc"
+            ]
+        ]
+    },
+    {
+        "id": "93706050.5ec4d8",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelay6",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 2180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6bbac81b.6e6a9",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 2320,
+        "wires": [
+            [
+                "e33269aa.777658"
+            ]
+        ]
+    },
+    {
+        "id": "e33269aa.777658",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"vrelay6\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 2320,
+        "wires": [
+            [
+                "63201ab8.0072fc"
+            ]
+        ]
+    },
+    {
+        "id": "69ee7828.f773e8",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelay6\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 2260,
+        "wires": [
+            [
+                "52c376da.88633"
+            ]
+        ]
+    },
+    {
+        "id": "63201ab8.0072fc",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "3954f4c2.e96bbc",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay 7 \"Open door 1 way\"",
+        "info": "",
+        "x": 150,
+        "y": 2400,
+        "wires": []
+    },
+    {
+        "id": "f1be9d06.1e15b8",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Relay 8 \"Open door opposite way\"",
+        "info": "",
+        "x": 180,
+        "y": 2663,
+        "wires": []
+    },
+    {
+        "id": "588febf0.b77fbc",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "relay7",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 440,
+        "y": 2520,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "ca58c0b5.201058",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay7",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 2500,
+        "wires": [
+            [
+                "8710d8fc.e81b3"
+            ]
+        ]
+    },
+    {
+        "id": "fb0bec08.e17e2",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 2460,
+        "wires": [
+            [
+                "d8b5e8df.42f8e8"
+            ]
+        ]
+    },
+    {
+        "id": "d8b5e8df.42f8e8",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "relay7",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 2460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d15614f0.f4d04",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 2520,
+        "wires": [
+            [
+                "845aa97c.d08b5"
+            ]
+        ]
+    },
+    {
+        "id": "8710d8fc.e81b3",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay7\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 2500,
+        "wires": [
+            [
+                "7d53c20d.93345c"
+            ]
+        ]
+    },
+    {
+        "id": "2cf1baf4.f80d9e",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay7",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 2440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "242e2348.28789c",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"relay7\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 2580,
+        "wires": [
+            [
+                "c574ccc.0c9f1b"
+            ]
+        ]
+    },
+    {
+        "id": "845aa97c.d08b5",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay7\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 2520,
+        "wires": [
+            [
+                "588febf0.b77fbc"
+            ]
+        ]
+    },
+    {
+        "id": "c574ccc.0c9f1b",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 2560,
+        "wires": []
+    },
+    {
+        "id": "7d53c20d.93345c",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1160,
+        "y": 2500,
+        "wires": [
+            [
+                "2cf1baf4.f80d9e",
+                "c574ccc.0c9f1b"
+            ]
+        ]
+    },
+    {
+        "id": "a1ffd84.4b4bda8",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "relay8",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 2780,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "86401d43.0717d8",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "relay8",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 2760,
+        "wires": [
+            [
+                "5d8bc7b4.dfbf4"
+            ]
+        ]
+    },
+    {
+        "id": "d3d947cc.1dc43",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 2720,
+        "wires": [
+            [
+                "3440066e.261a92"
+            ]
+        ]
+    },
+    {
+        "id": "3440066e.261a92",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "relay8",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 2720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "394b3a6a.32f856",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 2780,
+        "wires": [
+            [
+                "7ad27a23.f60934"
+            ]
+        ]
+    },
+    {
+        "id": "5d8bc7b4.dfbf4",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay8\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 2760,
+        "wires": [
+            [
+                "2e16d607.e119ca"
+            ]
+        ]
+    },
+    {
+        "id": "f798b006.09681",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay8",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 2700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7235c72f.50441",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 2840,
+        "wires": [
+            [
+                "7acc1fa1.304f9"
+            ]
+        ]
+    },
+    {
+        "id": "7acc1fa1.304f9",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"relay8\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 2840,
+        "wires": [
+            [
+                "c362b73c.b577b8"
+            ]
+        ]
+    },
+    {
+        "id": "7ad27a23.f60934",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"relay8\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 2780,
+        "wires": [
+            [
+                "a1ffd84.4b4bda8"
+            ]
+        ]
+    },
+    {
+        "id": "c362b73c.b577b8",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 2820,
+        "wires": []
+    },
+    {
+        "id": "4fd044d0.04e76c",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 2580,
+        "wires": [
+            [
+                "242e2348.28789c"
+            ]
+        ]
+    },
+    {
+        "id": "2e16d607.e119ca",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1140,
+        "y": 2760,
+        "wires": [
+            [
+                "f798b006.09681",
+                "c362b73c.b577b8"
+            ]
+        ]
+    },
+    {
+        "id": "79424ff9.cc0558",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Virtual Emergency Flow",
+        "info": "",
+        "x": 140,
+        "y": 2900,
+        "wires": []
+    },
+    {
+        "id": "444d6c05.10cbec",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "vrelay8",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 3020,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "73bbbf93.c17a9",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "vrelay8",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 3000,
+        "wires": [
+            [
+                "ccfc93f.4ffb17"
+            ]
+        ]
+    },
+    {
+        "id": "dd89e6fa.443bf8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 2960,
+        "wires": [
+            [
+                "226ba050.c03b1"
+            ]
+        ]
+    },
+    {
+        "id": "226ba050.c03b1",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vrelay8",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 2960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7e5e6b8.b755f94",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 3020,
+        "wires": [
+            [
+                "3bc78578.64ee62"
+            ]
+        ]
+    },
+    {
+        "id": "ccfc93f.4ffb17",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelay8\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 3000,
+        "wires": [
+            [
+                "e908db41.a80268",
+                "c52efaf7.39dd78"
+            ]
+        ]
+    },
+    {
+        "id": "e908db41.a80268",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelay8",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 2940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7a27b701.05c538",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 3080,
+        "wires": [
+            [
+                "352e7780.64195"
+            ]
+        ]
+    },
+    {
+        "id": "352e7780.64195",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"vrelay8\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 3080,
+        "wires": [
+            [
+                "c52efaf7.39dd78"
+            ]
+        ]
+    },
+    {
+        "id": "3bc78578.64ee62",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelay8\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 3020,
+        "wires": [
+            [
+                "444d6c05.10cbec"
+            ]
+        ]
+    },
+    {
+        "id": "c52efaf7.39dd78",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1390,
+        "y": 3060,
+        "wires": []
+    },
+    {
+        "id": "bda17f7b.4b68d",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Virtual Emergency All On/OFF Flow",
+        "info": "",
+        "x": 200,
+        "y": 4020,
+        "wires": []
+    },
+    {
+        "id": "ff920dd7.30c41",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "vrelayall",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 440,
+        "y": 4140,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "eb293c55.4aa83",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 110,
+        "y": 4080,
+        "wires": [
+            [
+                "4faf5baf.d256e4"
+            ]
+        ]
+    },
+    {
+        "id": "4faf5baf.d256e4",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vrelayall",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 4080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "97a540d0.8deea",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 4140,
+        "wires": [
+            [
+                "b42e0a6.2dbfd78"
+            ]
+        ]
+    },
+    {
+        "id": "a1913903.9ff81",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelayall\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1150,
+        "y": 4120,
+        "wires": [
+            [
+                "e349127a.25c788",
+                "341c71ea.71275e",
+                "c867eb91.3b427",
+                "e95a245b.ed3f1",
+                "29288542.5e7d9a",
+                "738d9204.9b2844"
+            ]
+        ]
+    },
+    {
+        "id": "e349127a.25c788",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelayall",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 4040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bf5a7d42.7bb478",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 4200,
+        "wires": [
+            [
+                "29568419.a1bbfc"
+            ]
+        ]
+    },
+    {
+        "id": "29568419.a1bbfc",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"vrelayall\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 4200,
+        "wires": [
+            [
+                "341c71ea.71275e"
+            ]
+        ]
+    },
+    {
+        "id": "b42e0a6.2dbfd78",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelayall\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 4140,
+        "wires": [
+            [
+                "ff920dd7.30c41"
+            ]
+        ]
+    },
+    {
+        "id": "341c71ea.71275e",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1410,
+        "y": 4420,
+        "wires": []
+    },
+    {
+        "id": "3e69a8b7.7c0e4",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "vrelayall",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1010,
+        "y": 4120,
+        "wires": [
+            [
+                "a1913903.9ff81"
+            ]
+        ]
+    },
+    {
+        "id": "c867eb91.3b427",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelay2",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 4080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e95a245b.ed3f1",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelay4",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 4120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "29288542.5e7d9a",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelay6",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1640,
+        "y": 4040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "738d9204.9b2844",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelay8",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1640,
+        "y": 4080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "acf97eae.aabd1",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Virtual Emergency All Open 1 Way Flow",
+        "info": "",
+        "x": 190,
+        "y": 3160,
+        "wires": []
+    },
+    {
+        "id": "39f52298.ce3476",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "vrelayallopen1",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 3280,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "b862d12e.8af74",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 3220,
+        "wires": [
+            [
+                "95333490.30b098"
+            ]
+        ]
+    },
+    {
+        "id": "95333490.30b098",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vrelayallopen1",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 3220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7115442d.e22f24",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 3280,
+        "wires": [
+            [
+                "c2c2bc10.0d501"
+            ]
+        ]
+    },
+    {
+        "id": "b42eb0bb.5402b8",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelayallopen1\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1130,
+        "y": 3260,
+        "wires": [
+            [
+                "2a0a4e2b.c2b422"
+            ]
+        ]
+    },
+    {
+        "id": "6d7ad418.33ca24",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 3340,
+        "wires": [
+            [
+                "15c51ef3.6fb4d9"
+            ]
+        ]
+    },
+    {
+        "id": "15c51ef3.6fb4d9",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"vrelayallopen1\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 3340,
+        "wires": [
+            [
+                "3a9092bf.8cdf46"
+            ]
+        ]
+    },
+    {
+        "id": "c2c2bc10.0d501",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelayallopen1\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 3280,
+        "wires": [
+            [
+                "39f52298.ce3476"
+            ]
+        ]
+    },
+    {
+        "id": "3a9092bf.8cdf46",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1570,
+        "y": 3520,
+        "wires": []
+    },
+    {
+        "id": "fe1df6ba.f66308",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "vrelayallopen1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 3260,
+        "wires": [
+            [
+                "b42eb0bb.5402b8"
+            ]
+        ]
+    },
+    {
+        "id": "dc89636d.8e3498",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay1",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1580,
+        "y": 3180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "950218b8.5e942",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay3",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1580,
+        "y": 3220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eca6d520.58ee6",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay7",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1800,
+        "y": 3180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33e60596.011dd2",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelayallopen1",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1580,
+        "y": 3140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b6a0e690.4cad08",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay5",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1800,
+        "y": 3140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a0a4e2b.c2b422",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1300,
+        "y": 3260,
+        "wires": [
+            [
+                "33e60596.011dd2",
+                "dc89636d.8e3498",
+                "950218b8.5e942",
+                "b6a0e690.4cad08",
+                "eca6d520.58ee6",
+                "3a9092bf.8cdf46"
+            ]
+        ]
+    },
+    {
+        "id": "bad61112.89ff18",
+        "type": "comment",
+        "z": "420e2168.9e0968",
+        "name": "Virtual Emergency All Open Opposite Way Flow",
+        "info": "",
+        "x": 220,
+        "y": 3540,
+        "wires": []
+    },
+    {
+        "id": "668119c4.634b2",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "ON/OFF state",
+        "property": "vrelayallopen2",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 3660,
+        "wires": [
+            [
+                "8554d9eb.438de8"
+            ],
+            [
+                "8554d9eb.438de8"
+            ]
+        ]
+    },
+    {
+        "id": "10adcb70.73fc4d",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "x": 90,
+        "y": 3600,
+        "wires": [
+            [
+                "779fdc02.3caebc"
+            ]
+        ]
+    },
+    {
+        "id": "779fdc02.3caebc",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "global switch start",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vrelayallopen2",
+                "pt": "global",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 3600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bf3ae64e.696018",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 3660,
+        "wires": [
+            [
+                "fc037b2a.08812"
+            ]
+        ]
+    },
+    {
+        "id": "46f78e5e.3bf0b8",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelayallopen2\")\nif (obtaindata == \"1\"){msg.payload = \"0\"}\nif (obtaindata == \"0\"){msg.payload = \"1\"}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1130,
+        "y": 3640,
+        "wires": [
+            [
+                "852b6aaf.77706"
+            ]
+        ]
+    },
+    {
+        "id": "ce4eabfa.032cb8",
+        "type": "inject",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 3720,
+        "wires": [
+            [
+                "b7070e47.74501"
+            ]
+        ]
+    },
+    {
+        "id": "b7070e47.74501",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "check variable value for debug",
+        "func": "var obtaindata = global.get (\"vrelayallopen2\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 3720,
+        "wires": [
+            [
+                "27ac8d15.21f1d2"
+            ]
+        ]
+    },
+    {
+        "id": "fc037b2a.08812",
+        "type": "function",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "func": "var obtaindata = global.get (\"vrelayallopen2\");\nmsg.payload = obtaindata;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 3660,
+        "wires": [
+            [
+                "668119c4.634b2"
+            ]
+        ]
+    },
+    {
+        "id": "27ac8d15.21f1d2",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1570,
+        "y": 3960,
+        "wires": []
+    },
+    {
+        "id": "45972206.45a7e4",
+        "type": "switch",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "vrelayallopen2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 3640,
+        "wires": [
+            [
+                "46f78e5e.3bf0b8"
+            ]
+        ]
+    },
+    {
+        "id": "483dd33a.c9c494",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay2",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1580,
+        "y": 3620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a6b63120.87e818",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay4",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1580,
+        "y": 3660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bf810dd9.2997",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "vrelayallopen2",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1580,
+        "y": 3580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "852b6aaf.77706",
+        "type": "trigger",
+        "z": "420e2168.9e0968",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1300,
+        "y": 3640,
+        "wires": [
+            [
+                "bf810dd9.2997",
+                "483dd33a.c9c494",
+                "a6b63120.87e818",
+                "27ac8d15.21f1d2",
+                "a657af9d.76a9d",
+                "d4ee985a.256b6"
+            ]
+        ]
+    },
+    {
+        "id": "d4ee985a.256b6",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay8",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1820,
+        "y": 3620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a657af9d.76a9d",
+        "type": "change",
+        "z": "420e2168.9e0968",
+        "name": "re-wirte switch variable",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "relay6",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1820,
+        "y": 3580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8554d9eb.438de8",
+        "type": "uibuilder",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "topic": "",
+        "url": "a",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "showfolder": false,
+        "x": 690,
+        "y": 80,
+        "wires": [
+            [
+                "c2fdc6fa.b5881",
+                "77e0263e.bd47d8",
+                "f5b56551.ee894",
+                "212e6dff.30464a",
+                "a94cc1ac.0d829",
+                "2914024.9e2ccfe",
+                "1e21372d.b2d899",
+                "3bba1ba1.8f643c",
+                "bf1d7813.a0912",
+                "ca58c0b5.201058",
+                "86401d43.0717d8",
+                "73bbbf93.c17a9",
+                "fe1df6ba.f66308",
+                "45972206.45a7e4",
+                "3e69a8b7.7c0e4",
+                "68f5be9a.1cd94"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "68f5be9a.1cd94",
+        "type": "debug",
+        "z": "420e2168.9e0968",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 870,
+        "y": 100,
+        "wires": []
+    }
+]
